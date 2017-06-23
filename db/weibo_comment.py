@@ -17,7 +17,7 @@ def save_comments(comment_list):
 
 @db_commit_decorator
 def save_comment(comment):
-	comment.comment_cont = process(comment.comment_cont)
+	#comment.comment_cont = process(comment.comment_cont)
     db_session.add(comment)
     db_session.commit()
 
