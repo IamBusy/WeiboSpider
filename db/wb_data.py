@@ -28,7 +28,7 @@ def insert_weibo_datas(weibo_datas):
     for data in weibo_datas:
         r = get_wb_by_mid(data.weibo_id)
         if not r:
-            weibo_data.weibo.cont = process(weibo_data.weibo_cont)
+            weibo_data.weibo_cont = process(weibo_data.weibo_cont)
             db_session.add(data)
     db_session.commit()
 
