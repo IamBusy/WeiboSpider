@@ -4,10 +4,13 @@ from db.basic_db import db_session
 from db.models import WeiboData
 from decorators.decorator import db_commit_decorator
 
+from db.process import process
+
 
 @db_commit_decorator
 def insert_weibo_data(weibo_data):
     # 存入数据的时候从更高一层判断是否会重复，不在该层做判断
+    weibo_data.weibo.cont = process(weibo_data.weibo_cont)
     db_session.add(weibo_data)
     db_session.commit()
 
@@ -25,6 +28,7 @@ def insert_weibo_datas(weibo_datas):
     for data in weibo_datas:
         r = get_wb_by_mid(data.weibo_id)
         if not r:
+            weibo_data.weibo.cont = process(weibo_data.weibo_cont)
             db_session.add(data)
     db_session.commit()
 

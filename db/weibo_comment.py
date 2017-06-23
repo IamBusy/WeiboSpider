@@ -3,6 +3,8 @@ from db.basic_db import db_session
 from db.models import WeiboComment
 from decorators.decorator import db_commit_decorator
 
+from db.process import process
+
 
 @db_commit_decorator
 def save_comments(comment_list):
@@ -15,6 +17,7 @@ def save_comments(comment_list):
 
 @db_commit_decorator
 def save_comment(comment):
+	comment.comment_cont = process(comment.comment_cont)
     db_session.add(comment)
     db_session.commit()
 
